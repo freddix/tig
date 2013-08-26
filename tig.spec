@@ -1,11 +1,11 @@
 Summary:	Text-mode interface for git
 Name:		tig
-Version:	1.2
+Version:	1.2.1
 Release:	1
 License:	GPL v2
 Group:		Development/Tools
 Source0:	http://jonas.nitro.dk/tig/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	9821525564aa3f4aa51ad2b6c11b3a91
+# Source0-md5:	9dec2966d3d51f7d8b5b8d4a4b8d93eb
 URL:		http://jonas.nitro.dk/tig/
 BuildRequires:	ncurses-devel
 Requires:	git
