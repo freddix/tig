@@ -1,13 +1,14 @@
 Summary:	Text-mode interface for git
 Name:		tig
-Version:	1.2.1
+Version:	2.0.1
 Release:	1
 License:	GPL v2
 Group:		Development/Tools
 Source0:	http://jonas.nitro.dk/tig/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	9dec2966d3d51f7d8b5b8d4a4b8d93eb
+# Source0-md5:	e0b3bc47b8c2c1e556ae953c0b30faab
 URL:		http://jonas.nitro.dk/tig/
 BuildRequires:	ncurses-devel
+BuildRequires:	readline-devel
 Requires:	git
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -19,25 +20,22 @@ pager for output from various git commands.
 %setup -q
 
 %build
-%{__make} \
-	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} %{rpmldflags} -I/usr/include/ncursesw" \
-	LDLIBS=-lncursesw
+%configure
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install install-doc-man \
-	DESTDIR=$RPM_BUILD_ROOT \
-	mandir=%{_mandir} \
-	prefix=%{_prefix}
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc BUGS README *.html contrib/tigrc
+%doc *.html
 %attr(755,root,root) %{_bindir}/tig
-%{_mandir}/man*/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/tigrc
+%{_mandir}/man*/*.*
 
