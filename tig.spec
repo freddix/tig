@@ -1,11 +1,11 @@
 Summary:	Text-mode interface for git
 Name:		tig
-Version:	2.0.2
+Version:	2.0.3
 Release:	1
 License:	GPL v2
 Group:		Development/Tools
 Source0:	http://jonas.nitro.dk/tig/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	e10e925d73d32ff7e17352b79dbc16f9
+# Source0-md5:	cd78dacf91798b5e48269813d678ebd7
 URL:		http://jonas.nitro.dk/tig/
 BuildRequires:	ncurses-devel
 BuildRequires:	readline-devel
@@ -20,8 +20,11 @@ pager for output from various git commands.
 %setup -q
 
 %build
+%{__aclocal} -I tools
+%{__autoconf}
+%{__autoheader}
 %configure
-%{__make}
+%{__make} V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -34,7 +37,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.html
+#%doc *.html
 %attr(755,root,root) %{_bindir}/tig
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/tigrc
 %{_mandir}/man*/*.*
